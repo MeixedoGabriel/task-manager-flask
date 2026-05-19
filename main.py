@@ -34,11 +34,10 @@ while True:
 
     if not title:
         print(Fore.RED + "A tarefa não pode estar vazia!")
-        input("\nPressione ENTER para continuar...")
-        continue
         add_task(title)
         print("Tarefa adicionada com sucesso!")
         input("\nPressione ENTER para continuar...")
+        continue
 
     elif option == "2":
         tasks = list_tasks()
@@ -53,6 +52,7 @@ while True:
                 f"- {task[1]} "
                 f"{status_color}[{task[2]}]"
             )
+            input("\nPressione ENTER para continuar...")
 
     elif option == "3":
         task_id = input("Digite o ID da tarefa: ")

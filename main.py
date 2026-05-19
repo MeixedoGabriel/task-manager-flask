@@ -1,6 +1,11 @@
 print("Sistema de tarefas iniciado!")
 from database import create_table
-from tasks import add_task, list_tasks
+from tasks import (
+    add_task,
+    list_tasks,
+    complete_task,
+    delete_task
+)
 
 create_table()
 
@@ -8,7 +13,9 @@ while True:
     print("\n=== GERENCIADOR DE TAREFAS ===")
     print("1 - Adicionar tarefa")
     print("2 - Listar tarefas")
-    print("3 - Sair")
+    print("3 - Concluir tarefa")
+    print("4 - Deletar tarefa")
+    print("5 - Sair")
 
     option = input("Escolha uma opção: ")
 

@@ -56,7 +56,7 @@ while True:
                 f"- {task[1]} "
                 f"{status_color}[{task[2]}]"
             )
-            input("\nPressione ENTER para continuar...")
+        input("\nPressione ENTER para continuar...")
 
     elif option == "3":
         task_id = input("Digite o ID da tarefa: ")

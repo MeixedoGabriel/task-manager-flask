@@ -22,3 +22,28 @@ def list_tasks():
     conn.close()
 
     return tasks
+
+def complete_task(task_id):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "UPDATE tasks SET status = ? WHERE id = ?",
+        ("Concluída", task_id)
+    )
+
+    conn.commit()
+    conn.close()
+
+
+def delete_task(task_id):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM tasks WHERE id = ?",
+        (task_id,)
+    )
+
+    conn.commit()
+    conn.close()

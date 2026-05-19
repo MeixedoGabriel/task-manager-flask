@@ -31,6 +31,10 @@ while True:
 
     if option == "1":
         title = input("Digite o nome da tarefa: ").strip()
+        add_task(title)
+        print("Tarefa adicionada com sucesso!")
+        input("\nPressione ENTER para continuar...")
+        continue
 
     if not title:
         print(Fore.RED + "A tarefa não pode estar vazia!")

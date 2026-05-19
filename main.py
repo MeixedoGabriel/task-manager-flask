@@ -1,3 +1,11 @@
+from colorama import Fore, Style, init
+import os
+
+init(autoreset=True)
+
+def clear_screen():
+    os.system("cls")
+
 print("Sistema de tarefas iniciado!")
 from database import create_table
 from tasks import (
@@ -10,19 +18,27 @@ from tasks import (
 create_table()
 
 while True:
-    print("\n=== GERENCIADOR DE TAREFAS ===")
-    print("1 - Adicionar tarefa")
-    print("2 - Listar tarefas")
-    print("3 - Concluir tarefa")
-    print("4 - Deletar tarefa")
-    print("5 - Sair")
+    clear_screen()
+
+    print(Fore.CYAN + "=== GERENCIADOR DE TAREFAS ===")
+    print(Fore.YELLOW + "1 - Adicionar tarefa")
+    print(Fore.YELLOW + "2 - Listar tarefas")
+    print(Fore.YELLOW + "3 - Concluir tarefa")
+    print(Fore.YELLOW + "4 - Deletar tarefa")
+    print(Fore.YELLOW + "5 - Sair")
 
     option = input("Escolha uma opção: ")
 
     if option == "1":
-        title = input("Digite o nome da tarefa: ")
+        title = input("Digite o nome da tarefa: ").strip()
+
+    if not title:
+        print(Fore.RED + "A tarefa não pode estar vazia!")
+        input("\nPressione ENTER para continuar...")
+        continue
         add_task(title)
         print("Tarefa adicionada com sucesso!")
+        input("\nPressione ENTER para continuar...")
 
     elif option == "2":
         tasks = list_tasks()
@@ -30,22 +46,40 @@ while True:
         print("\n=== TAREFAS ===")
 
         for task in tasks:
-            print(f"{task[0]} - {task[1]} [{task[2]}]")
+            status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
+
+            print(
+                f"{Fore.CYAN}{task[0]} "
+                f"- {task[1]} "
+                f"{status_color}[{task[2]}]"
+            )
 
     elif option == "3":
         task_id = input("Digite o ID da tarefa: ")
 
+        if not task_id.isdigit():
+            print(Fore.RED + "Digite um ID válido!")
+            input("\nPressione ENTER para continuar...")
+            continue
+
         complete_task(task_id)
 
         print("Tarefa concluída com sucesso!")
+        input("\nPressione ENTER para continuar...")
 
 
     elif option == "4":
         task_id = input("Digite o ID da tarefa: ")
 
+        if not task_id.isdigit():
+            print(Fore.RED + "Digite um ID válido!")
+            input("\nPressione ENTER para continuar...")
+            continue
+
         delete_task(task_id)
 
         print("Tarefa deletada com sucesso!")
+        input("\nPressione ENTER para continuar...")
 
 
     elif option == "5":

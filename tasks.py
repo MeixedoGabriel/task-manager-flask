@@ -29,18 +29,34 @@ def complete_task(task_id):
     conn = connect()
     cursor = conn.cursor()
 
+    # Busca a tarefa
+    cursor.execute(
+        "SELECT status FROM tasks WHERE id = ?",
+        (task_id,)
+    )
+
+    task = cursor.fetchone()
+
+    # Verifica se tarefa existe
+    if not task:
+        conn.close()
+        return "not_found"
+
+    # Verifica se já está concluída
+    if task[0] == "Concluída":
+        conn.close()
+        return "already_completed"
+
+    # Atualiza status
     cursor.execute(
         "UPDATE tasks SET status = ? WHERE id = ?",
         ("Concluída", task_id)
     )
 
     conn.commit()
-
-    updated_rows = cursor.rowcount
-
     conn.close()
 
-    return updated_rows > 0
+    return "success"
 
 
 def delete_task(task_id):

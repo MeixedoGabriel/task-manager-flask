@@ -53,6 +53,7 @@ while True:
         title = input("Digite o nome da tarefa: ").strip()
         if not title:
             print(Fore.RED + "A tarefa não pode estar vazia!")
+            input("Pressione ENTER para continuar...")
         else:
             add_task(title)
             print("Tarefa adicionada com sucesso!")
@@ -69,12 +70,17 @@ while True:
         mostrar_tasks_bonito()
         task_id = input("Digite o ID da tarefa: ")
 
-        success = complete_task(task_id)
-        if success:
+        result = complete_task(task_id)
+
+        if result == "success":
             print(Fore.GREEN + "Tarefa concluída com sucesso!")
+
+        elif result == "already_completed":
+            print(Fore.YELLOW + "Essa tarefa já está concluída!")
+
         else:
             print(Fore.RED + "Tarefa não encontrada!")
-
+            
         input("\nPressione ENTER para continuar...")
 
 
@@ -91,7 +97,7 @@ while True:
 
         if success:
             print(Fore.GREEN + "Tarefa deletada com sucesso!")
-            input("Pressione ENTER para continuar")
+            input("Pressione ENTER para continuar...")
         else:
             print(Fore.RED + "Tarefa não encontrada!")
         

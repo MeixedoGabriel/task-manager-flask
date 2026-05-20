@@ -12,21 +12,27 @@ from tasks import (
     add_task,
     list_tasks,
     complete_task,
-    delete_task
+    delete_task,
     reset_tasks
 )
 
 def mostrar_tasks_bonito():
     tasks = list_tasks()
-    print("\n=== TAREFAS ===")
-    for task in tasks:
-        status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
+    if not tasks:
+        print(Fore.RED + "\nNenhuma tarefa encontrada.")
+        input("\nPressione ENTER para continuar...")
+    
+    else:
+        print("\n=== TAREFAS ===")
+        for task in tasks:
+            status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
 
-        print(
-            f"{Fore.CYAN}{task[0]} "
-            f"- {task[1]} "
-             f"{status_color}[{task[2]}]"
-            )
+            print(
+                f"{Fore.CYAN}{task[0]} "
+                f"- {task[1]} "
+                f"{status_color}[{task[2]}]"
+                )
+
 
 create_table()
 
@@ -93,7 +99,7 @@ while True:
                 Fore.RED +
                 "Tem certeza que deseja apagar TODAS as tarefas? (s/n): "
             ).lower()[0]
-            
+
         if confirm == "s":
             reset_tasks()
             print(Fore.GREEN + "Banco resetado com sucesso!")

@@ -21,6 +21,7 @@ def mostrar_tasks_bonito():
     if not tasks:
         print(Fore.RED + "\nNenhuma tarefa encontrada.")
         input("\nPressione ENTER para continuar...")
+        return "Nenhuma Tarefa"
     
     else:
         print("\n=== TAREFAS ===")
@@ -68,19 +69,20 @@ while True:
 
     elif option == "3":
         mostrar_tasks_bonito()
-        task_id = input("Digite o ID da tarefa: ")
+        if mostrar_tasks_bonito() not in "Nenhuma Tarefa":
+            task_id = input("Digite o ID da tarefa: ")
 
-        result = complete_task(task_id)
+            result = complete_task(task_id)
 
-        if result == "success":
-            print(Fore.GREEN + "Tarefa concluída com sucesso!")
+            if result == "success":
+                print(Fore.GREEN + "Tarefa concluída com sucesso!")
 
-        elif result == "already_completed":
-            print(Fore.YELLOW + "Essa tarefa já está concluída!")
+            elif result == "already_completed":
+                print(Fore.YELLOW + "Essa tarefa já está concluída!")
 
-        else:
-            print(Fore.RED + "Tarefa não encontrada!")
-            
+            else:
+                print(Fore.RED + "Tarefa não encontrada!")
+
         input("\nPressione ENTER para continuar...")
 
 

@@ -70,7 +70,10 @@ while True:
 
     elif option == "3":
         mostrar_tasks_bonito()
-        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
+        if "Nenhuma Tarefa" == mostrar_tasks_bonito(mostar=False):
+            input("\nPressione ENTER para continuar...")
+
+        else:
             task_id = input("Digite o ID da tarefa: ")
 
             result = complete_task(task_id)
@@ -84,13 +87,12 @@ while True:
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
 
-        else:
-            input("\nPressione ENTER para continuar...")
-
 
     elif option == "4":
         mostrar_tasks_bonito()
-        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
+        if "Nenhuma Tarefa" == mostrar_tasks_bonito(mostar=False):
+            input("\nPressione ENTER para continuar...")
+        else:
             task_id = input("Digite o ID da tarefa: ")
 
             if not task_id.isdigit():
@@ -105,8 +107,6 @@ while True:
                 input("\nPressione ENTER para continuar...")
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
-        else:
-            input("\nPressione ENTER para continuar...")
         
         
     elif option == "5":

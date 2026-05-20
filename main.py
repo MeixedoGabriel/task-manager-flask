@@ -23,17 +23,17 @@ def mostrar_tasks_bonito(mostar=True):
             print(Fore.RED + "\nNenhuma tarefa encontrada.")
         else:
             return "Nenhuma Tarefa"
-    
     else:
-        print("\n=== TAREFAS ===")
-        for task in tasks:
-            status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
+        if mostar:
+            print("\n=== TAREFAS ===")
+            for task in tasks:
+                status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
 
-            print(
-                f"{Fore.CYAN}{task[0]} "
-                f"- {task[1]} "
-                f"{status_color}[{task[2]}]"
-                )
+                print(
+                    f"{Fore.CYAN}{task[0]} "
+                    f"- {task[1]} "
+                    f"{status_color}[{task[2]}]"
+                    )
 
 
 create_table()
@@ -71,7 +71,7 @@ while True:
     elif option == "3":
         mostrar_tasks_bonito()
         if "Nenhuma Tarefa" == mostrar_tasks_bonito(mostar=False):
-            input("\nPressione ENTER para continuar...")
+            pass
 
         else:
             task_id = input("Digite o ID da tarefa: ")
@@ -86,6 +86,8 @@ while True:
 
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
+
+        input("\nPressione ENTER para continuar...")
 
 
     elif option == "4":

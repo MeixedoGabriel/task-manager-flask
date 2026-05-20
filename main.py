@@ -69,7 +69,8 @@ while True:
 
 
     elif option == "3":
-        if mostrar_tasks_bonito() not in "Nenhuma Tarefa":
+        mostrar_tasks_bonito()
+        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
             task_id = input("Digite o ID da tarefa: ")
 
             result = complete_task(task_id)
@@ -88,7 +89,8 @@ while True:
 
 
     elif option == "4":
-        if mostrar_tasks_bonito() not in "Nenhuma Tarefa":
+        mostrar_tasks_bonito()
+        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
             task_id = input("Digite o ID da tarefa: ")
 
             if not task_id.isdigit():

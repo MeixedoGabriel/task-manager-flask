@@ -106,7 +106,7 @@ while True:
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
         else:
-            print("\nPressione ENTER para continuar...")
+            input("\nPressione ENTER para continuar...")
         
         
     elif option == "5":

@@ -12,6 +12,7 @@ def add_task(title):
     conn.commit()
     conn.close()
 
+
 def list_tasks():
     conn = connect()
     cursor = conn.cursor()
@@ -22,6 +23,7 @@ def list_tasks():
     conn.close()
 
     return tasks
+
 
 def complete_task(task_id):
     conn = connect()
@@ -44,6 +46,20 @@ def delete_task(task_id):
         "DELETE FROM tasks WHERE id = ?",
         (task_id,)
     )
+
+    conn.commit()
+    conn.close()
+
+
+def reset_tasks():
+    conn = connect()
+    cursor = conn.cursor()
+
+    # Deleta todas as tarefas
+    cursor.execute("DELETE FROM tasks")
+
+    # Reseta contador de IDs
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='tasks'")
 
     conn.commit()
     conn.close()

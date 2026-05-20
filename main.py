@@ -13,6 +13,7 @@ from tasks import (
     list_tasks,
     complete_task,
     delete_task
+    reset_tasks
 )
 
 def mostrar_tasks_bonito():
@@ -37,7 +38,8 @@ while True:
     print(Fore.YELLOW + "2 - Listar tarefas")
     print(Fore.YELLOW + "3 - Concluir tarefa")
     print(Fore.YELLOW + "4 - Deletar tarefa")
-    print(Fore.YELLOW + "5 - Sair")
+    print(Fore.YELLOW + "5 - Resetar banco de dados")
+    print(Fore.YELLOW + "6 - Sair")
 
     option = input("Escolha uma opção: ")
 
@@ -84,7 +86,24 @@ while True:
         print("Tarefa deletada com sucesso!")
         input("\nPressione ENTER para continuar...")
 
-
     elif option == "5":
-        print("Saindo...")
+        confirm = " "
+        while confirm not in "sn":
+            confirm = input(
+                Fore.RED +
+                "Tem certeza que deseja apagar TODAS as tarefas? (s/n): "
+            ).lower()[0]
+            
+        if confirm == "s":
+            reset_tasks()
+            print(Fore.GREEN + "Banco resetado com sucesso!")
+
+        elif confirm == "n":
+            print(Fore.YELLOW + "Operação cancelada.")
+
+        input("\nPressione ENTER para continuar...")
+
+
+    elif option == "6":
+        print(Fore.CYAN + "Saindo...")
         break

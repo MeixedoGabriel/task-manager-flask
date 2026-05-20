@@ -21,7 +21,6 @@ def mostrar_tasks_bonito(mostar=True):
     if not tasks:
         if mostar:
             print(Fore.RED + "\nNenhuma tarefa encontrada.")
-            input("\nPressione ENTER para continuar...")
         else:
             return "Nenhuma Tarefa"
     

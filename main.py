@@ -15,6 +15,18 @@ from tasks import (
     delete_task
 )
 
+def mostrar_tasks_bonito():
+    tasks = list_tasks()
+    print("\n=== TAREFAS ===")
+    for task in tasks:
+        status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
+
+        print(
+            f"{Fore.CYAN}{task[0]} "
+            f"- {task[1]} "
+             f"{status_color}[{task[2]}]"
+            )
+
 create_table()
 
 while True:
@@ -31,34 +43,20 @@ while True:
 
     if option == "1":
         title = input("Digite o nome da tarefa: ").strip()
-        add_task(title)
-        print("Tarefa adicionada com sucesso!")
-        input("\nPressione ENTER para continuar...")
-        continue
-
-    if not title:
-        print(Fore.RED + "A tarefa não pode estar vazia!")
-        add_task(title)
-        print("Tarefa adicionada com sucesso!")
-        input("\nPressione ENTER para continuar...")
-        continue
+        if not title:
+            print(Fore.RED + "A tarefa não pode estar vazia!")
+        else:
+            add_task(title)
+            print("Tarefa adicionada com sucesso!")
+            input("\nPressione ENTER para continuar...")
+            continue
 
     elif option == "2":
-        tasks = list_tasks()
-
-        print("\n=== TAREFAS ===")
-
-        for task in tasks:
-            status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
-
-            print(
-                f"{Fore.CYAN}{task[0]} "
-                f"- {task[1]} "
-                f"{status_color}[{task[2]}]"
-            )
-        input("\nPressione ENTER para continuar...")
+        mostrar_tasks_bonito()
+        input("\nPressione Enter para continuar...")
 
     elif option == "3":
+        mostrar_tasks_bonito()
         task_id = input("Digite o ID da tarefa: ")
 
         if not task_id.isdigit():
@@ -73,6 +71,7 @@ while True:
 
 
     elif option == "4":
+        mostrar_tasks_bonito()
         task_id = input("Digite o ID da tarefa: ")
 
         if not task_id.isdigit():

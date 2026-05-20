@@ -56,7 +56,7 @@ while True:
         title = input("Digite o nome da tarefa: ").strip()
         if not title:
             print(Fore.RED + "A tarefa não pode estar vazia!")
-            input("Pressione ENTER para continuar...")
+            input("\nPressione ENTER para continuar...")
         else:
             add_task(title)
             print("Tarefa adicionada com sucesso!")
@@ -85,7 +85,8 @@ while True:
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
 
-        input("\nPressione ENTER para continuar...")
+        else:
+            input("\nPressione ENTER para continuar...")
 
 
     elif option == "4":
@@ -102,11 +103,11 @@ while True:
 
             if success:
                 print(Fore.GREEN + "Tarefa deletada com sucesso!")
-                input("Pressione ENTER para continuar...")
+                input("\nPressione ENTER para continuar...")
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
         else:
-            print("Pressione ENTER para continuar...")
+            print("\nPressione ENTER para continuar...")
         
         
     elif option == "5":

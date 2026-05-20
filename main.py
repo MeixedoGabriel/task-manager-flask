@@ -16,12 +16,14 @@ from tasks import (
     reset_tasks
 )
 
-def mostrar_tasks_bonito():
+def mostrar_tasks_bonito(mostar=True):
     tasks = list_tasks()
     if not tasks:
-        print(Fore.RED + "\nNenhuma tarefa encontrada.")
-        input("\nPressione ENTER para continuar...")
-        return "Nenhuma Tarefa"
+        if mostar:
+            print(Fore.RED + "\nNenhuma tarefa encontrada.")
+            input("\nPressione ENTER para continuar...")
+        else:
+            return "Nenhuma Tarefa"
     
     else:
         print("\n=== TAREFAS ===")
@@ -69,7 +71,7 @@ while True:
 
     elif option == "3":
         mostrar_tasks_bonito()
-        if mostrar_tasks_bonito() not in "Nenhuma Tarefa":
+        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
             task_id = input("Digite o ID da tarefa: ")
 
             result = complete_task(task_id)
@@ -88,20 +90,23 @@ while True:
 
     elif option == "4":
         mostrar_tasks_bonito()
-        task_id = input("Digite o ID da tarefa: ")
+        if mostrar_tasks_bonito(mostar=False) not in "Nenhuma Tarefa":
+            task_id = input("Digite o ID da tarefa: ")
 
-        if not task_id.isdigit():
-            print(Fore.RED + "Digite um ID válido!")
-            input("\nPressione ENTER para continuar...")
-            continue
+            if not task_id.isdigit():
+                print(Fore.RED + "Digite um ID válido!")
+                input("\nPressione ENTER para continuar...")
+                continue
 
-        success = delete_task(task_id)
+            success = delete_task(task_id)
 
-        if success:
-            print(Fore.GREEN + "Tarefa deletada com sucesso!")
-            input("Pressione ENTER para continuar...")
+            if success:
+                print(Fore.GREEN + "Tarefa deletada com sucesso!")
+                input("Pressione ENTER para continuar...")
+            else:
+                print(Fore.RED + "Tarefa não encontrada!")
         else:
-            print(Fore.RED + "Tarefa não encontrada!")
+            print("Pressione ENTER para continuar...")
         
         
     elif option == "5":

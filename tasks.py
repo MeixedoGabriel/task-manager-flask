@@ -35,7 +35,12 @@ def complete_task(task_id):
     )
 
     conn.commit()
+
+    updated_rows = cursor.rowcount
+
     conn.close()
+
+    return updated_rows > 0
 
 
 def delete_task(task_id):
@@ -48,8 +53,12 @@ def delete_task(task_id):
     )
 
     conn.commit()
+
+    deleted_rows = cursor.rowcount
+
     conn.close()
 
+    return deleted_rows > 0
 
 def reset_tasks():
     conn = connect()

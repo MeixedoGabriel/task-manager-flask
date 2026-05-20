@@ -59,22 +59,22 @@ while True:
             input("\nPressione ENTER para continuar...")
             continue
 
+
     elif option == "2":
         mostrar_tasks_bonito()
-        input("\nPressione Enter para continuar...")
+        input("\nPressione ENTER para continuar...")
+
 
     elif option == "3":
         mostrar_tasks_bonito()
         task_id = input("Digite o ID da tarefa: ")
 
-        if not task_id.isdigit():
-            print(Fore.RED + "Digite um ID válido!")
-            input("\nPressione ENTER para continuar...")
-            continue
+        success = complete_task(task_id)
+        if success:
+            print(Fore.GREEN + "Tarefa concluída com sucesso!")
+        else:
+            print(Fore.RED + "Tarefa não encontrada!")
 
-        complete_task(task_id)
-
-        print("Tarefa concluída com sucesso!")
         input("\nPressione ENTER para continuar...")
 
 
@@ -87,11 +87,15 @@ while True:
             input("\nPressione ENTER para continuar...")
             continue
 
-        delete_task(task_id)
+        success = delete_task(task_id)
 
-        print("Tarefa deletada com sucesso!")
-        input("\nPressione ENTER para continuar...")
-
+        if success:
+            print(Fore.GREEN + "Tarefa deletada com sucesso!")
+            input("Pressione ENTER para continuar")
+        else:
+            print(Fore.RED + "Tarefa não encontrada!")
+        
+        
     elif option == "5":
         confirm = " "
         while confirm not in "sn":

@@ -29,11 +29,13 @@ def mostrar_tasks_bonito(mostar=True):
             for task in tasks:
                 status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
 
-                print(
-                    f"{Fore.CYAN}{task[0]} "
-                    f"- {task[1]} "
-                    f"{status_color}[{task[2]}]"
-                    )
+                print(Fore.CYAN + f"\nID: {task[0]}")
+                print(f"Tarefa: {task[1]}")
+                print(f"Status: {status_color}{task[2]}")
+                print(f"Prioridade: {task[3]}")
+                print(f"Categoria: {task[4]}")
+                print(f"Criada em: {task[5]}")
+                print(f"Prazo: {task[6]}")
 
 
 create_table()
@@ -53,11 +55,41 @@ while True:
 
     if option == "1":
         title = input("Digite o nome da tarefa: ").strip()
+        print("\nPrioridades:")
+        print("1 - Alta")
+        print("2 - Média")
+        print("3 - Baixa")
+
+        priority_option = input("Escolha a prioridade: ")
+
+        priorities = {
+            "1": "Alta",
+            "2": "Média",
+            "3": "Baixa"
+        }
+
+        priority = priorities.get(priority_option)
+
+        if not priority:
+            print(Fore.RED + "Prioridade inválida!")
+            input("\nPressione ENTER para continuar...")
+            continue
+
+        category = input("Digite a categoria: ").strip()
+
+        if not category:
+            print(Fore.RED + "Categoria inválida!")
+            input("\nPressione ENTER para continuar...")
+            continue
+
+        due_date = input(
+            "Digite a data de prazo (dd/mm/aaaa): "
+        ).strip()
         if not title:
             print(Fore.RED + "A tarefa não pode estar vazia!")
             input("\nPressione ENTER para continuar...")
         else:
-            add_task(title)
+            add_task(title, priority, category, due_date)
             print("Tarefa adicionada com sucesso!")
             input("\nPressione ENTER para continuar...")
             continue

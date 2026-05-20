@@ -1,12 +1,32 @@
 from database import connect
+from datetime import datetime
 
-def add_task(title):
+def add_task(title, priority, category, due_date):
     conn = connect()
     cursor = conn.cursor()
 
+    created_at = datetime.now().strftime("%d/%m/%Y")
+
     cursor.execute(
-        "INSERT INTO tasks (title, status) VALUES (?, ?)",
-        (title, "Pendente")
+        """
+        INSERT INTO tasks (
+            title,
+            status,
+            priority,
+            category,
+            created_at,
+            due_date
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+        """,
+        (
+            title,
+            "Pendente",
+            priority,
+            category,
+            created_at,
+            due_date
+        )
     )
 
     conn.commit()

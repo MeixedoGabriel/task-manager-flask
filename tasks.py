@@ -108,3 +108,67 @@ def reset_tasks():
 
     conn.commit()
     conn.close()
+
+
+def filter_by_status(status):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM tasks WHERE status = ?",
+        (status,)
+    )
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return tasks
+
+
+def filter_by_priority(priority):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM tasks WHERE priority = ?",
+        (priority,)
+    )
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return tasks
+
+
+def filter_by_category(category):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM tasks WHERE category = ?",
+        (category,)
+    )
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return tasks
+
+
+def search_tasks(keyword):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM tasks WHERE title LIKE ?",
+        (f"%{keyword}%",)
+    )
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return tasks

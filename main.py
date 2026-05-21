@@ -13,7 +13,11 @@ from tasks import (
     list_tasks,
     complete_task,
     delete_task,
-    reset_tasks
+    reset_tasks,
+    filter_by_status,
+    filter_by_priority,
+    filter_by_category,
+    search_tasks
 )
 
 def mostrar_tasks_bonito(mostar=True):
@@ -38,6 +42,27 @@ def mostrar_tasks_bonito(mostar=True):
                 print(f"Prazo: {task[6]}")
 
 
+def display_tasks(tasks):
+    if not tasks:
+        print(Fore.RED + "\nNenhuma tarefa encontrada.")
+        return
+
+    for task in tasks:
+        status_color = (
+            Fore.GREEN
+            if task[2] == "Concluída"
+            else Fore.RED
+        )
+
+        print(Fore.CYAN + f"\nID: {task[0]}")
+        print(f"Tarefa: {task[1]}")
+        print(f"Status: {status_color}{task[2]}")
+        print(f"Prioridade: {task[3]}")
+        print(f"Categoria: {task[4]}")
+        print(f"Criada em: {task[5]}")
+        print(f"Prazo: {task[6]}")
+
+
 create_table()
 
 while True:
@@ -48,8 +73,10 @@ while True:
     print(Fore.YELLOW + "2 - Listar tarefas")
     print(Fore.YELLOW + "3 - Concluir tarefa")
     print(Fore.YELLOW + "4 - Deletar tarefa")
-    print(Fore.YELLOW + "5 - Resetar banco de dados")
-    print(Fore.YELLOW + "6 - Sair")
+    print(Fore.YELLOW + "5 - Filtrar tarefas")
+    print(Fore.YELLOW + "6 - Pesquisar tarefa")
+    print(Fore.YELLOW + "7 - Resetar banco")
+    print(Fore.YELLOW + "8 - Sair")
 
     option = input("Escolha uma opção: ")
 
@@ -141,9 +168,54 @@ while True:
                 input("\nPressione ENTER para continuar...")
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
-        
-        
+
     elif option == "5":
+        print("\n=== FILTROS ===")
+        print("1 - Pendentes")
+        print("2 - Concluídas")
+        print("3 - Prioridade Alta")
+        print("4 - Categoria")
+
+        filter_option = input("Escolha um filtro: ")
+
+        if filter_option == "1":
+            tasks = filter_by_status("Pendente")
+
+        elif filter_option == "2":
+            tasks = filter_by_status("Concluída")
+
+        elif filter_option == "3":
+            tasks = filter_by_priority("Alta")
+
+        elif filter_option == "4":
+            category = input("Digite a categoria: ")
+
+            tasks = filter_by_category(category)
+
+        else:
+            print(Fore.RED + "Filtro inválido!")
+            input("\nPressione ENTER para continuar...")
+            continue
+
+        mostrar_tasks_bonito(tasks)
+
+        input("\nPressione ENTER para continuar...")
+
+    elif option == "6":
+        keyword = input(
+            "Digite um termo para pesquisar: "
+        ).strip()
+
+        tasks = search_tasks(keyword)
+
+        print("\n=== RESULTADOS ===")
+
+        mostrar_tasks_bonito(tasks)
+
+        input("\nPressione ENTER para continuar...")
+            
+        
+    elif option == "7":
         confirm = " "
         while confirm not in "sn":
             confirm = input(
@@ -161,6 +233,6 @@ while True:
         input("\nPressione ENTER para continuar...")
 
 
-    elif option == "6":
+    elif option == "8":
         print(Fore.CYAN + "Saindo...")
         break

@@ -21,26 +21,25 @@ from tasks import (
     get_dashboard_data
 )
 
-def display_tasks(mostar=True):
-    tasks = list_tasks()
+def display_tasks(tasks):
     if not tasks:
-        if mostar:
-            print(Fore.RED + "\nNenhuma tarefa encontrada.")
-        else:
-            return "Nenhuma Tarefa"
-    else:
-        if mostar:
-            print("\n=== TAREFAS ===")
-            for task in tasks:
-                status_color = Fore.GREEN if task[2] == "Concluída" else Fore.RED
+        print(Fore.RED + "\nNenhuma tarefa encontrada.")
+        return "Nenhuma Tarefa"
 
-                print(Fore.CYAN + f"\nID: {task[0]}")
-                print(f"Tarefa: {task[1]}")
-                print(f"Status: {status_color}{task[2]}")
-                print(f"Prioridade: {task[3]}")
-                print(f"Categoria: {task[4]}")
-                print(f"Criada em: {task[5]}")
-                print(f"Prazo: {task[6]}")
+    for task in tasks:
+        status_color = (
+            Fore.GREEN
+            if task[2] == "Concluída"
+            else Fore.RED
+        )
+
+        print(Fore.CYAN + f"\nID: {task[0]}")
+        print(f"Tarefa: {task[1]}")
+        print(f"Status: {status_color}{task[2]}")
+        print(f"Prioridade: {task[3]}")
+        print(f"Categoria: {task[4]}")
+        print(f"Criada em: {task[5]}")
+        print(f"Prazo: {task[6]}")
 
 
 create_table()
@@ -104,13 +103,15 @@ while True:
 
 
     elif option == "2":
-        display_tasks()
+        tasks = list_tasks()
+        display_tasks(tasks)
         input("\nPressione ENTER para continuar...")
 
 
     elif option == "3":
-        display_tasks()
-        if "Nenhuma Tarefa" == display_tasks(mostar=False):
+        tasks = list_tasks()
+        display_tasks(tasks)
+        if "Nenhuma Tarefa" == display_tasks(tasks):
             pass
 
         else:
@@ -131,8 +132,9 @@ while True:
 
 
     elif option == "4":
-        display_tasks()
-        if "Nenhuma Tarefa" == display_tasks(mostar=False):
+        tasks = list_tasks()
+        display_tasks(tasks)
+        if "Nenhuma Tarefa" == display_tasks(tasks):
             input("\nPressione ENTER para continuar...")
         else:
             task_id = input("Digite o ID da tarefa: ")

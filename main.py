@@ -17,10 +17,11 @@ from tasks import (
     filter_by_status,
     filter_by_priority,
     filter_by_category,
-    search_tasks
+    search_tasks,
+    get_dashboard_data
 )
 
-def mostrar_tasks_bonito(mostar=True):
+def display_tasks(mostar=True):
     tasks = list_tasks()
     if not tasks:
         if mostar:
@@ -42,27 +43,6 @@ def mostrar_tasks_bonito(mostar=True):
                 print(f"Prazo: {task[6]}")
 
 
-def display_tasks(tasks):
-    if not tasks:
-        print(Fore.RED + "\nNenhuma tarefa encontrada.")
-        return
-
-    for task in tasks:
-        status_color = (
-            Fore.GREEN
-            if task[2] == "Concluída"
-            else Fore.RED
-        )
-
-        print(Fore.CYAN + f"\nID: {task[0]}")
-        print(f"Tarefa: {task[1]}")
-        print(f"Status: {status_color}{task[2]}")
-        print(f"Prioridade: {task[3]}")
-        print(f"Categoria: {task[4]}")
-        print(f"Criada em: {task[5]}")
-        print(f"Prazo: {task[6]}")
-
-
 create_table()
 
 while True:
@@ -73,10 +53,11 @@ while True:
     print(Fore.YELLOW + "2 - Listar tarefas")
     print(Fore.YELLOW + "3 - Concluir tarefa")
     print(Fore.YELLOW + "4 - Deletar tarefa")
-    print(Fore.YELLOW + "5 - Filtrar tarefas")
-    print(Fore.YELLOW + "6 - Pesquisar tarefa")
-    print(Fore.YELLOW + "7 - Resetar banco")
-    print(Fore.YELLOW + "8 - Sair")
+    print(Fore.YELLOW + "5 - Dashboard")
+    print(Fore.YELLOW + "6 - Filtrar tarefas")
+    print(Fore.YELLOW + "7 - Pesquisar tarefa")
+    print(Fore.YELLOW + "8 - Resetar banco")
+    print(Fore.YELLOW + "9 - Sair")
 
     option = input("Escolha uma opção: ")
 
@@ -123,13 +104,13 @@ while True:
 
 
     elif option == "2":
-        mostrar_tasks_bonito()
+        display_tasks()
         input("\nPressione ENTER para continuar...")
 
 
     elif option == "3":
-        mostrar_tasks_bonito()
-        if "Nenhuma Tarefa" == mostrar_tasks_bonito(mostar=False):
+        display_tasks()
+        if "Nenhuma Tarefa" == display_tasks(mostar=False):
             pass
 
         else:
@@ -150,8 +131,8 @@ while True:
 
 
     elif option == "4":
-        mostrar_tasks_bonito()
-        if "Nenhuma Tarefa" == mostrar_tasks_bonito(mostar=False):
+        display_tasks()
+        if "Nenhuma Tarefa" == display_tasks(mostar=False):
             input("\nPressione ENTER para continuar...")
         else:
             task_id = input("Digite o ID da tarefa: ")
@@ -168,8 +149,23 @@ while True:
                 input("\nPressione ENTER para continuar...")
             else:
                 print(Fore.RED + "Tarefa não encontrada!")
-
+    
+    
     elif option == "5":
+        data = get_dashboard_data()
+
+        print(Fore.CYAN + "\n=== DASHBOARD ===\n")
+
+        print(f"Total de tarefas: {data['total']}")
+        print(Fore.RED + f"Pendentes: {data['pending']}")
+        print(Fore.GREEN + f"Concluídas: {data['completed']}")
+        print(Fore.YELLOW + f"Alta prioridade: {data['high_priority']}")
+        print(Fore.MAGENTA + f"Tarefas vencidas: {data['overdue']}")
+
+        input("\nPressione ENTER para continuar...")
+
+
+    elif option == "6":
         print("\n=== FILTROS ===")
         print("1 - Pendentes")
         print("2 - Concluídas")
@@ -197,11 +193,11 @@ while True:
             input("\nPressione ENTER para continuar...")
             continue
 
-        mostrar_tasks_bonito(tasks)
+        display_tasks(tasks)
 
         input("\nPressione ENTER para continuar...")
 
-    elif option == "6":
+    elif option == "7":
         keyword = input(
             "Digite um termo para pesquisar: "
         ).strip()
@@ -210,12 +206,12 @@ while True:
 
         print("\n=== RESULTADOS ===")
 
-        mostrar_tasks_bonito(tasks)
+        display_tasks(tasks)
 
         input("\nPressione ENTER para continuar...")
             
         
-    elif option == "7":
+    elif option == "8":
         confirm = " "
         while confirm not in "sn":
             confirm = input(
@@ -233,6 +229,6 @@ while True:
         input("\nPressione ENTER para continuar...")
 
 
-    elif option == "8":
+    elif option == "9":
         print(Fore.CYAN + "Saindo...")
         break

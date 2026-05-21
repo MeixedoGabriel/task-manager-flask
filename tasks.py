@@ -172,3 +172,57 @@ def search_tasks(keyword):
     conn.close()
 
     return tasks
+
+
+from datetime import datetime
+
+
+def get_dashboard_data():
+    conn = connect()
+    cursor = conn.cursor()
+
+    # Total de tarefas
+    cursor.execute("SELECT COUNT(*) FROM tasks")
+    total_tasks = cursor.fetchone()[0]
+
+    # Pendentes
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE status = 'Pendente'"
+    )
+    pending_tasks = cursor.fetchone()[0]
+
+    # Concluídas
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE status = 'Concluída'"
+    )
+    completed_tasks = cursor.fetchone()[0]
+
+    # Alta prioridade
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE priority = 'Alta'"
+    )
+    high_priority_tasks = cursor.fetchone()[0]
+
+    # Tarefas vencidas
+    today = datetime.now().strftime("%d/%m/%Y")
+
+    cursor.execute(
+        """
+        SELECT COUNT(*) FROM tasks
+        WHERE due_date < ?
+        AND status = 'Pendente'
+        """,
+        (today,)
+    )
+
+    overdue_tasks = cursor.fetchone()[0]
+
+    conn.close()
+
+    return {
+        "total": total_tasks,
+        "pending": pending_tasks,
+        "completed": completed_tasks,
+        "high_priority": high_priority_tasks,
+        "overdue": overdue_tasks
+    }

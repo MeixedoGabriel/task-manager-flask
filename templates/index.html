@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Gerenciador de Tarefas</h1>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h3>Total</h3>
+                <p>{{ dashboard.total }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Pendentes</h3>
+                <p>{{ dashboard.pending }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Concluídas</h3>
+                <p>{{ dashboard.completed }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Alta Prioridade</h3>
+                <p>{{ dashboard.high_priority }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Vencidas</h3>
+                <p>{{ dashboard.overdue }}</p>
+            </div>
+
+        </div>
+
+        <div class="form-container">
+
+            <h2>Nova Tarefa</h2>
+
+            <form action="/add" method="POST">
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Nome da tarefa"
+                    required
+                >
+
+                <select name="priority" required>
+                    <option value="">Prioridade</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+                </select>
+
+                <input
+                    type="text"
+                    name="category"
+                    placeholder="Categoria"
+                    required
+                >
+
+                <input
+                    type="date"
+                    name="due_date"
+                    required
+                >
+
+                <button type="submit">                  
+                    Adicionar
+                </button>
+
+            </form>
+
+        </div>
+
+        <h2>Tarefas</h2>
+
+        <div class="tasks">
+
+            {% for task in tasks %}
+
+                <div class="task-card">
+
+                    <h3>{{ task[1] }}</h3>
+
+                    <p><strong>Status:</strong> {{ task[2] }}</p>
+
+                    <p>
+                        <strong>Prioridade:</strong>
+                        {{ task[3] }}
+                    </p>
+
+                    <p>
+                        <strong>Categoria:</strong>
+                        {{ task[4] }}
+                    </p>
+
+                    <p>
+                        <strong>Criada em:</strong>
+                        {{ task[5] }}
+                    </p>
+
+                    <p>
+                        <strong>Prazo:</strong>
+                        {{ task[6] }}
+                    </p>
+
+                    <div class="buttons">
+
+                        {% if task[2] != "Concluída" %}
+
+                            <a
+                                href="/complete/{{ task[0] }}"
+                                class="complete-btn"
+                            >
+                                Concluir
+                            </a>
+
+                        {% endif %}
+
+                        <a
+                            href="/delete/{{ task[0] }}"
+                            class="delete-btn"
+                        >
+                            Deletar
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

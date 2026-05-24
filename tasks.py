@@ -15,6 +15,14 @@ def add_task(title, priority, category, due_date):
 
     # Pega a data atual
     created_at = datetime.now().strftime("%d/%m/%Y")
+    try:
+        due_date = datetime.strptime(
+            due_date,
+            "%Y-%m-%d"
+        ).strftime("%d/%m/%Y")
+
+    except ValueError:
+        pass
 
     # Insere a tarefa no banco
     cursor.execute(
@@ -41,7 +49,7 @@ def add_task(title, priority, category, due_date):
         )
     )
 
-    conn.commit()
+    conn.commit()                       
     conn.close()
 
 

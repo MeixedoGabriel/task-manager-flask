@@ -1,0 +1,126 @@
+body {
+    background-color: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dashboard {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.task-card h3 {
+    margin-top: 0;
+    color: #38bdf8;
+}
+
+.form-container {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+input,
+select,
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+}
+
+input,
+select {
+    flex: 1;
+}
+
+button {
+    background-color: #38bdf8;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.complete-btn,
+.delete-btn {
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.complete-btn {
+    background-color: #22c55e;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+.complete-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,78 @@
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for
+)
+from tasks import (
+    list_tasks,
+    get_dashboard_data,
+    add_task,
+    complete_task,
+    delete_task
+)
+
+app = Flask(__name__)
+
+# =========================
+# PÁGINA PRINCIPAL
+# =========================
+@app.route("/")
+def home():
+
+    tasks = list_tasks()
+
+    dashboard = get_dashboard_data()
+
+    return render_template(
+        "index.html",
+        tasks=tasks,
+        dashboard=dashboard
+    )
+
+# =========================
+# ADICIONAR TAREFA 
+# =========================
+@app.route("/add", methods=["POST"])
+def add_new_task():
+
+    title = request.form["title"]
+    priority = request.form["priority"]
+    category = request.form["category"]
+    due_date = request.form["due_date"]
+
+    add_task(
+        title,
+        priority,
+        category,
+        due_date
+    )
+
+    return redirect(url_for("home"))
+
+
+# =========================
+# CONCLUIR TAREFA
+# =========================
+@app.route("/complete/<int:task_id>") # /complete/ seguido de um número inteiro, que será passado para a função complete como argumento task_id
+def complete(task_id):
+
+    complete_task(task_id)
+
+    return redirect(url_for("home"))
+
+
+# =========================
+# DELETAR TAREFA
+# =========================
+@app.route("/delete/<int:task_id>") # /delete/ seguido de um número inteiro, que será passado para a função delete como argumento task_id
+def delete(task_id):
+
+    delete_task(task_id)
+
+    return redirect(url_for("home"))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

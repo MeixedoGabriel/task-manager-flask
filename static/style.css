@@ -124,3 +124,10 @@ button:hover {
 .delete-btn:hover {
     opacity: 0.8;
 }
+
+.filter-container {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}

@@ -292,3 +292,32 @@ def get_dashboard_data():
         "high_priority": high_priority_tasks,
         "overdue": overdue_tasks
     }
+
+
+def filter_tasks(search="", status="", priority=""):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM tasks WHERE 1=1"
+    params = []
+
+    if search:
+        query += " AND title LIKE ?"
+        params.append(f"%{search}%")
+
+    if status:
+        query += " AND status = ?"
+        params.append(status)
+
+    if priority:
+        query += " AND priority = ?"
+        params.append(priority)
+
+    cursor.execute(query, params)
+
+    tasks = cursor.fetchall()
+
+    conn.close()
+
+    return tasks

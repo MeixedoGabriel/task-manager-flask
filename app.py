@@ -10,7 +10,8 @@ from tasks import (
     get_dashboard_data,
     add_task,
     complete_task,
-    delete_task
+    delete_task,
+    filter_tasks
 )
 
 app = Flask(__name__)
@@ -21,35 +22,26 @@ app = Flask(__name__)
 @app.route("/")
 def home():
 
-    tasks = list_tasks()
+    search = request.args.get("search", "")
+    status = request.args.get("status", "")
+    priority = request.args.get("priority", "")
+
+    tasks = filter_tasks(
+        search,
+        status,
+        priority
+    )
 
     dashboard = get_dashboard_data()
 
     return render_template(
         "index.html",
         tasks=tasks,
-        dashboard=dashboard
+        dashboard=dashboard,
+        search=search,
+        status=status,
+        priority=priority
     )
-
-# =========================
-# ADICIONAR TAREFA 
-# =========================
-@app.route("/add", methods=["POST"])
-def add_new_task():
-
-    title = request.form["title"]
-    priority = request.form["priority"]
-    category = request.form["category"]
-    due_date = request.form["due_date"]
-
-    add_task(
-        title,
-        priority,
-        category,
-        due_date
-    )
-
-    return redirect(url_for("home"))
 
 
 # =========================

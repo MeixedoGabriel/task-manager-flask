@@ -151,7 +151,19 @@
 
                     <h3>{{ task[1] }}</h3>
 
-                    <p><strong>Status:</strong> {{ task[2] }}</p>
+                    {% if task[2] == "Concluída" %}
+
+                    <p class="completed-status">
+                            ✅ Concluída
+                    </p>
+
+                    {% else %}
+
+                    <p class="pending-status">
+                            ⏳ Pendente
+                    </p>
+
+                    {% endif %}
 
                     <p>
                         <strong>Prioridade:</strong>

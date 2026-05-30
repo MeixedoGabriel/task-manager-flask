@@ -131,3 +131,13 @@ button:hover {
     border-radius: 10px;
     margin-bottom: 30px;
 }
+
+.completed-status {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.pending-status {
+    color: #facc15;
+    font-weight: bold;
+}

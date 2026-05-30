@@ -45,6 +45,27 @@ def home():
 
 
 # =========================
+# ADICIONAR TAREFA
+# =========================
+@app.route("/add", methods=["POST"])
+def add_new_task():
+
+    title = request.form["title"]
+    priority = request.form["priority"]
+    category = request.form["category"]
+    due_date = request.form["due_date"]
+
+    add_task(
+        title,
+        priority,
+        category,
+        due_date
+    )
+
+    return redirect(url_for("home"))
+
+
+# =========================
 # CONCLUIR TAREFA
 # =========================
 @app.route("/complete/<int:task_id>") # /complete/ seguido de um número inteiro, que será passado para a função complete como argumento task_id

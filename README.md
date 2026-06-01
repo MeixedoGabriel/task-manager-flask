@@ -1,14 +1,27 @@
-# Task Manager Python
+# Task Manager Flask
 
-Projeto simples de gerenciamento de tarefas usando Python.
-
-## Tecnologias
-- Python
-- SQLite
-- Git
+Sistema web de gerenciamento de tarefas desenvolvido com Python, Flask e SQLite.
 
 ## Funcionalidades
+
 - Criar tarefas
-- Listar tarefas
 - Concluir tarefas
 - Deletar tarefas
+- Dashboard
+- Filtros
+- Pesquisa
+- Banco de dados SQLite
+
+## Tecnologias
+
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
+- Git
+- Render
+
+## Deploy
+
+https://task-manager-flask-ocxx.onrender.com/

@@ -16,6 +16,29 @@
 
         <h1>Gerenciador de Tarefas</h1>
 
+        <div class="danger-zone">
+
+            <form
+                action="/reset"
+                method="POST"
+                onsubmit="
+                    return confirm(
+                        'Tem certeza que deseja apagar TODAS as tarefas?'
+                    )
+                "
+            >
+
+                <button
+                    type="submit"
+                    class="reset-btn"
+                >
+                    🗑 Resetar Banco
+                </button>
+
+            </form>
+
+        </div>
+
         <div class="dashboard">
 
             <div class="card">
@@ -129,6 +152,30 @@
 
                     <option value="Baixa">
                         Baixa
+                    </option>
+
+                </select>
+
+                <select name="order">
+
+                    <option value="">
+                        Ordenação
+                    </option>
+
+                    <option value="newest">
+                        Mais recentes
+                    </option>
+
+                    <option value="oldest">
+                        Mais antigas
+                    </option>
+
+                    <option value="high_priority">
+                        Prioridade alta primeiro
+                    </option>
+
+                    <option value="low_priority">
+                        Prioridade baixa primeiro
                     </option>
 
                 </select>

@@ -294,7 +294,12 @@ def get_dashboard_data():
     }
 
 
-def filter_tasks(search="", status="", priority=""):
+def filter_tasks(
+    search="",
+    status="",
+    priority="",
+    order=""
+):
 
     conn = connect()
     cursor = conn.cursor()
@@ -313,6 +318,33 @@ def filter_tasks(search="", status="", priority=""):
     if priority:
         query += " AND priority = ?"
         params.append(priority)
+
+    # Ordenações
+    if order == "newest":
+        query += " ORDER BY id DESC"
+
+    elif order == "oldest":
+        query += " ORDER BY id ASC"
+
+    elif order == "high_priority":
+        query += """
+        ORDER BY
+        CASE priority
+            WHEN 'Alta' THEN 1
+            WHEN 'Média' THEN 2
+            WHEN 'Baixa' THEN 3
+        END
+        """
+
+    elif order == "low_priority":
+        query += """
+        ORDER BY
+        CASE priority
+            WHEN 'Baixa' THEN 1
+            WHEN 'Média' THEN 2
+            WHEN 'Alta' THEN 3
+        END
+        """
 
     cursor.execute(query, params)
 

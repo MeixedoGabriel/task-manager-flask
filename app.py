@@ -11,7 +11,8 @@ from tasks import (
     add_task,
     complete_task,
     delete_task,
-    filter_tasks
+    filter_tasks,
+    reset_tasks
 )
 
 app = Flask(__name__)
@@ -25,11 +26,13 @@ def home():
     search = request.args.get("search", "")
     status = request.args.get("status", "")
     priority = request.args.get("priority", "")
+    order = request.args.get("order", "")
 
     tasks = filter_tasks(
         search,
         status,
-        priority
+        priority,
+        order
     )
 
     dashboard = get_dashboard_data()
@@ -40,7 +43,8 @@ def home():
         dashboard=dashboard,
         search=search,
         status=status,
-        priority=priority
+        priority=priority,
+        order=order
     )
 
 
@@ -83,6 +87,17 @@ def complete(task_id):
 def delete(task_id):
 
     delete_task(task_id)
+
+    return redirect(url_for("home"))
+
+
+# =========================
+# RESETAR BANCO
+# =========================
+@app.route("/reset", methods=["POST"])
+def reset():
+
+    reset_tasks()
 
     return redirect(url_for("home"))
 

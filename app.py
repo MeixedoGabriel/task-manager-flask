@@ -7,7 +7,6 @@ from flask import (
     session
 )
 from tasks import (
-    list_tasks,
     get_dashboard_data,
     add_task,
     complete_task,

@@ -1,27 +1,69 @@
 # Task Manager Flask
 
-Sistema web de gerenciamento de tarefas desenvolvido com Python, Flask e SQLite.
+Sistema de gerenciamento de tarefas desenvolvido com Python, Flask e SQLite.
 
 ## Funcionalidades
 
-- Criar tarefas
-- Concluir tarefas
-- Deletar tarefas
-- Dashboard
-- Filtros
-- Pesquisa
-- Banco de dados SQLite
+* Cadastro de usuários
+* Login e Logout
+* Senhas criptografadas
+* CRUD completo de tarefas
+* Dashboard de produtividade
+* Filtros por status e prioridade
+* Pesquisa de tarefas
+* Ordenação personalizada
+* Edição de tarefas
+* Exclusão de tarefas
+* Sistema multiusuário
+* Deploy online
 
-## Tecnologias
+## Tecnologias Utilizadas
 
-- Python
-- Flask
-- SQLite
-- HTML
-- CSS
-- Git
-- Render
+* Python
+* Flask
+* SQLite
+* HTML5
+* CSS3
+* Jinja2
+* Git
+* GitHub
+* Render
 
-## Deploy
+## Demonstração
 
-https://task-manager-flask-ocxx.onrender.com/
+Projeto online:
+
+https://task-manager-flask-ocxx.onrender.com
+
+## Instalação
+
+```bash
+git clone https://github.com/MeixedoGabriel/task-manager-flask.git
+
+cd task-manager-flask
+
+pip install -r requirements.txt
+
+python app.py
+```
+
+## Estrutura do Projeto
+
+```text
+task-manager-flask
+│
+├── static
+├── templates
+├── app.py
+├── auth.py
+├── database.py
+├── tasks.py
+├── requirements.txt
+└── README.md
+```
+
+## Autor
+
+Gabriel Meixedo
+
+Estudante de Ciência da Computação, focado em desenvolvimento back-end com Python.

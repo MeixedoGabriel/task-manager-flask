@@ -19,30 +19,40 @@ def create_table():
     # Cursor executa comandos SQL
     cursor = conn.cursor()
 
-    # Cria a tabela caso ela não exista
+    #tabela de usuários
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        username TEXT UNIQUE NOT NULL,
+
+        password TEXT NOT NULL
+    )
+    """)
+
+    # Cria a tabela caso ela não exista - tabela de tarefas
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS tasks (
 
-        -- ID único gerado automaticamente
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        -- Nome da tarefa
         title TEXT NOT NULL,
 
-        -- Status da tarefa
         status TEXT NOT NULL,
 
-        -- Prioridade
         priority TEXT NOT NULL,
 
-        -- Categoria
         category TEXT NOT NULL,
 
-        -- Data de criação
         created_at TEXT NOT NULL,
 
-        -- Data limite
-        due_date TEXT NOT NULL
+        due_date TEXT NOT NULL,
+
+        user_id INTEGER,
+
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
     )
     """)
 

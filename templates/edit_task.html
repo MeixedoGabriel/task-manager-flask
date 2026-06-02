@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Editar Tarefa</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="edit-container">
+
+            <h1>✏️ Editar Tarefa</h1>
+
+            <form method="POST">
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ task[1] }}"
+                    required
+                >
+
+                <select
+                    name="priority"
+                    required
+                >
+
+                    <option
+                        value="Alta"
+                        {% if task[3] == "Alta" %}
+                            selected
+                        {% endif %}
+                    >
+                        Alta
+                    </option>
+
+                    <option
+                        value="Média"
+                        {% if task[3] == "Média" %}
+                            selected
+                        {% endif %}
+                    >
+                        Média
+                    </option>
+
+                    <option
+                        value="Baixa"
+                        {% if task[3] == "Baixa" %}
+                            selected
+                        {% endif %}
+                    >
+                        Baixa
+                    </option>
+
+                </select>
+
+                <input
+                    type="text"
+                    name="category"
+                    value="{{ task[4] }}"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="due_date"
+                    value="{{ task[6] }}"
+                    required
+                >
+
+                <div class="edit-buttons">
+
+                    <button type="submit">
+
+                        💾 Salvar Alterações
+
+                    </button>
+
+                    <a
+                        href="/"
+                        class="cancel-btn"
+                    >
+                        Cancelar
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

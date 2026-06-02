@@ -8,7 +8,13 @@ from datetime import datetime
 # =========================
 # ADICIONAR TAREFA
 # =========================
-def add_task(title, priority, category, due_date):
+def add_task(
+    title,
+    priority,
+    category,
+    due_date,
+    user_id
+):
 
     conn = connect()
     cursor = conn.cursor()
@@ -33,9 +39,10 @@ def add_task(title, priority, category, due_date):
             priority,
             category,
             created_at,
-            due_date
+            due_date,
+            user_id
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
 
         # Valores que serão inseridos
@@ -45,7 +52,8 @@ def add_task(title, priority, category, due_date):
             priority,
             category,
             created_at,
-            due_date
+            due_date,
+            user_id
         )
     )
 
@@ -139,13 +147,19 @@ def delete_task(task_id):
 # =========================
 # RESETAR BANCO
 # =========================
-def reset_tasks():
+def reset_tasks(user_id):
 
     conn = connect()
     cursor = conn.cursor()
 
     # Apaga todas as tarefas
-    cursor.execute("DELETE FROM tasks")
+    cursor.execute(
+        """
+        DELETE FROM tasks
+        WHERE user_id = ?
+        """,
+        (user_id,)
+    )
 
     # Reinicia os IDs do banco
     cursor.execute(
@@ -240,30 +254,40 @@ def search_tasks(keyword):
 # =========================
 # DASHBOARD
 # =========================
-def get_dashboard_data():
+def get_dashboard_data(user_id):
 
     conn = connect()
     cursor = conn.cursor()
 
     # Conta total de tarefas
-    cursor.execute("SELECT COUNT(*) FROM tasks")
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM tasks
+        WHERE user_id = ?
+        """,
+        (user_id,)
+    )
     total_tasks = cursor.fetchone()[0]
 
     # Conta pendentes
     cursor.execute(
-        "SELECT COUNT(*) FROM tasks WHERE status = 'Pendente'"
+        "SELECT COUNT(*) FROM tasks WHERE user_id = ? AND status = 'Pendente'",
+        (user_id,)
     )
     pending_tasks = cursor.fetchone()[0]
 
     # Conta concluídas
     cursor.execute(
-        "SELECT COUNT(*) FROM tasks WHERE status = 'Concluída'"
+        "SELECT COUNT(*) FROM tasks WHERE user_id = ? AND status = 'Concluída'",
+        (user_id,)
     )
     completed_tasks = cursor.fetchone()[0]
 
     # Conta alta prioridade
     cursor.execute(
-        "SELECT COUNT(*) FROM tasks WHERE priority = 'Alta'"
+        "SELECT COUNT(*) FROM tasks WHERE user_id = ? AND priority = 'Alta'",
+        (user_id,)
     )
     high_priority_tasks = cursor.fetchone()[0]
 
@@ -276,8 +300,9 @@ def get_dashboard_data():
         SELECT COUNT(*) FROM tasks
         WHERE due_date < ?
         AND status = 'Pendente'
+        AND user_id = ?
         """,
-        (today,)
+        (today, user_id)
     )
 
     overdue_tasks = cursor.fetchone()[0]
@@ -295,6 +320,7 @@ def get_dashboard_data():
 
 
 def filter_tasks(
+    user_id,
     search="",
     status="",
     priority="",
@@ -304,8 +330,12 @@ def filter_tasks(
     conn = connect()
     cursor = conn.cursor()
 
-    query = "SELECT * FROM tasks WHERE 1=1"
-    params = []
+    query = """
+    SELECT *
+    FROM tasks
+    WHERE user_id = ?
+    """
+    params = [user_id]
 
     if search:
         query += " AND title LIKE ?"
@@ -353,3 +383,58 @@ def filter_tasks(
     conn.close()
 
     return tasks
+
+
+def get_task(task_id):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM tasks
+        WHERE id = ?
+        """,
+        (task_id,)
+    )
+
+    task = cursor.fetchone()
+
+    conn.close()
+
+    return task
+
+
+def update_task(
+    task_id,
+    title,
+    priority,
+    category,
+    due_date
+):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE tasks
+        SET
+            title = ?,
+            priority = ?,
+            category = ?,
+            due_date = ?
+        WHERE id = ?
+        """,
+        (
+            title,
+            priority,
+            category,
+            due_date,
+            task_id
+        )
+    )
+
+    conn.commit()
+    conn.close()
